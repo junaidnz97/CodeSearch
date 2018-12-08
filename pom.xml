@@ -22,16 +22,16 @@
     </build>
 
     <dependencies>
+
         <dependency>
-            <groupId>com.medallia.word2vec</groupId>
-            <artifactId>Word2VecJava</artifactId>
-            <version>0.10.3</version>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-highlighter</artifactId>
+            <version>7.5.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.medallia.word2vec</groupId>
-            <artifactId>Word2VecJava</artifactId>
-            <version>0.10.3</version>
-        </dependency>
+
+
+
     </dependencies>
-    
+
+
 </project>

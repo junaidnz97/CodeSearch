@@ -1,7 +1,6 @@
 package com.howtodoinjava.demo.lucene.file;
  
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,7 +35,7 @@ public class LuceneWriteIndexFromFileExample
  
         //Input Path Variable
         final Path docDir = Paths.get(docsPath);
- 
+
         try
         {
             //org.apache.lucene.store.Directory instance
@@ -96,11 +95,19 @@ public class LuceneWriteIndexFromFileExample
  
     static void indexDoc(IndexWriter writer, Path file, long lastModified) throws IOException
     {
+
+        BufferedReader in = new BufferedReader(new FileReader(file.toString()));
+        String line;
+        while((line = in.readLine()) != null)
+        {
+            System.out.println(line);
+        }
+        in.close();
         try (InputStream stream = Files.newInputStream(file))
         {
             //Create lucene Document
             Document doc = new Document();
-             
+            System.out.println(file.toString());
             doc.add(new StringField("path", file.toString(), Field.Store.YES));
             doc.add(new LongPoint("modified", lastModified));
             doc.add(new TextField("contents", new String(Files.readAllBytes(file)), Store.YES));
