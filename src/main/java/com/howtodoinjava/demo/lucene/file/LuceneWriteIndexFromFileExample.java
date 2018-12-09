@@ -9,7 +9,9 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
  
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;
+import org.apache.lucene.analysis.ngram.NGramTokenFilter;
 import org.apache.lucene.analysis.ngram.NGramTokenizer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -27,6 +29,11 @@ import org.apache.lucene.store.FSDirectory;
  
 public class LuceneWriteIndexFromFileExample
 {
+    //minimum number of N-Grams
+    static int MIN_N_GRAMS = 3;
+    //Maximum Number of N-Grams
+    static int MAX_N_GRAMS = 5;
+
     public static void main(String[] args)
     {
         //Input folder
@@ -35,10 +42,6 @@ public class LuceneWriteIndexFromFileExample
         //Output folder
         String indexPath = "indexedFiles";
 
-        //minimum number of N-Grams
-        int MIN_N_GRAMS = 3;
-        //Maximum Number of N-Grams
-        int MAX_N_GRAMS = 5;
 
         //Input Path Variable
         final Path docDir = Paths.get(docsPath);
@@ -57,7 +60,8 @@ public class LuceneWriteIndexFromFileExample
                  @Override
                  protected TokenStreamComponents createComponents(String s) {
                      Tokenizer source = new NGramTokenizer(MIN_N_GRAMS, MAX_N_GRAMS);
-                     return new TokenStreamComponents(source);
+                     TokenStream filter = new NGramTokenFilter(source, MIN_N_GRAMS, MAX_N_GRAMS);
+                     return new TokenStreamComponents(source, filter);
 
                  }
             };
