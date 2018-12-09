@@ -108,13 +108,13 @@ public class LuceneNGramWrite {
     static void indexDoc(IndexWriter writer, Path file, long lastModified) throws IOException
     {
 
-        BufferedReader in = new BufferedReader(new FileReader(file.toString()));
-        String line;
-        while((line = in.readLine()) != null)
-        {
-            System.out.println(line);
-        }
-        in.close();
+       // BufferedReader in = new BufferedReader(new FileReader(file.toString()));
+       // String line;
+        //while((line = in.readLine()) != null)
+        //{
+         //   System.out.println(line);
+        //}
+        //in.close();
         try (InputStream stream = Files.newInputStream(file))
         {
             //Create lucene Document

@@ -39,7 +39,7 @@ public class Wildcardquery {
              * */
 
             //Create wildcard query
-            Query query = new WildcardQuery(new Term("contents", "arrange elements in order"));
+            Query query = new WildcardQuery(new Term("contents", "search"));
 
             //Search the lucene documents
             //TopDocs hits = searcher.search(query, 10, Sort.INDEXORDER);
