@@ -9,6 +9,8 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
  
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.Tokenizer;
+import org.apache.lucene.analysis.ngram.NGramTokenizer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -32,7 +34,12 @@ public class LuceneWriteIndexFromFileExample
          
         //Output folder
         String indexPath = "indexedFiles";
- 
+
+        //minimum number of N-Grams
+        int MIN_N_GRAMS = 3;
+        //Maximum Number of N-Grams
+        int MAX_N_GRAMS = 5;
+
         //Input Path Variable
         final Path docDir = Paths.get(docsPath);
 
@@ -42,8 +49,19 @@ public class LuceneWriteIndexFromFileExample
             Directory dir = FSDirectory.open( Paths.get(indexPath) );
              
             //analyzer with the default stop words
-            Analyzer analyzer = new StandardAnalyzer();
-             
+            //Analyzer analyzer = new StandardAnalyzer();
+
+            //Using new Analyzer to create a N-Gram Tokenizer to create a n-gram index.
+            // NGramTokenizer generates all tokens with MIN_N_GRAMS to MAX_N_GRAMS.
+            Analyzer analyzer = new Analyzer() {
+                 @Override
+                 protected TokenStreamComponents createComponents(String s) {
+                     Tokenizer source = new NGramTokenizer(MIN_N_GRAMS, MAX_N_GRAMS);
+                     return new TokenStreamComponents(source);
+
+                 }
+            };
+
             //IndexWriter Configuration
             IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
             iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
