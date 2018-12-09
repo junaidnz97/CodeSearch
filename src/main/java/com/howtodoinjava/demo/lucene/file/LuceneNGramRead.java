@@ -5,6 +5,7 @@ import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.ngram.NGramTokenFilter;
 import org.apache.lucene.analysis.ngram.NGramTokenizer;
+import org.apache.lucene.analysis.snowball.SnowballFilter;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -29,7 +30,7 @@ public class LuceneNGramRead {
         IndexSearcher searcher = createSearcher();
 
         //Search indexed contents using search term
-        TopDocs foundDocs = searchInContent("find all permutation of a given string", searcher);
+        TopDocs foundDocs = searchInContent(texttofind, searcher);
 
         //Total found documents
         System.out.println("Total Results :: " + foundDocs.totalHits);
@@ -50,7 +51,8 @@ public class LuceneNGramRead {
             protected TokenStreamComponents createComponents(String s) {
                 Tokenizer source = new NGramTokenizer(LuceneNGramWrite.MIN_N_GRAMS, LuceneNGramWrite.MAX_N_GRAMS);
                 //TokenStream filter = new NGramTokenFilter(source, LuceneNGramWrite.MIN_N_GRAMS, LuceneNGramWrite.MAX_N_GRAMS);
-                return new TokenStreamComponents(source);
+                TokenStream filter = new SnowballFilter(source, "English");
+                return new TokenStreamComponents(source, filter);
             }
         });
         Query query = qp.parse(textToFind);
