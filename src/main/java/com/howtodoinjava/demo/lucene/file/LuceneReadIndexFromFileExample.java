@@ -22,13 +22,13 @@ public class LuceneReadIndexFromFileExample
     //directory contains the lucene indexes
     private static final String INDEX_DIR = "indexedFiles";
  
-    public static void main(String[] args) throws Exception
+    public  void LuceneReadIndexFromFileExamplemain(String texttofind) throws Exception
     {
         //Create lucene searcher. It search over a single IndexReader.
         IndexSearcher searcher = createSearcher();
 
         //Search indexed contents using search term
-        String texttofind="arrange elements in order";
+        //String texttofind="arrange elements in order";
         TopDocs foundDocs = searchInContent(texttofind, searcher);
         QueryParser qp = new QueryParser("contents", new StandardAnalyzer());
         Query query = qp.parse(texttofind);

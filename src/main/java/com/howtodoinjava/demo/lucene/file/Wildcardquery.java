@@ -19,7 +19,7 @@ public class Wildcardquery {
         //This contains the lucene indexed documents
         private static final String INDEX_DIR = "indexedFiles";
 
-        public static void main(String[] args) throws Exception
+        public  void Wildcardquerymain(String texttofind) throws Exception
         {
             //Get directory reference
             Directory dir = FSDirectory.open(Paths.get(INDEX_DIR));
@@ -39,7 +39,7 @@ public class Wildcardquery {
              * */
 
             //Create wildcard query
-            Query query = new WildcardQuery(new Term("contents", "search"));
+            Query query = new WildcardQuery(new Term("contents", texttofind));
 
             //Search the lucene documents
             //TopDocs hits = searcher.search(query, 10, Sort.INDEXORDER);

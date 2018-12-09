@@ -25,7 +25,7 @@ import org.apache.lucene.store.FSDirectory;
  
 public class LuceneWriteIndexFromFileExample
 {
-    public static void main(String[] args)
+    public void LuceneWriteIndexFromFileExamplemain()
     {
         //Input folder
         String docsPath = "inputFiles";

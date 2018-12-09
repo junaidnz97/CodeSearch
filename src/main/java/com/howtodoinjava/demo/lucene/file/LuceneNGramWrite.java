@@ -25,7 +25,7 @@ public class LuceneNGramWrite {
     //Maximum Number of N-Grams
     static int MAX_N_GRAMS = 5;
 
-    public static void main(String[] args)
+    public  void LuceneNGramWritemain()
     {
         //Input folder
         String docsPath = "inputFiles";

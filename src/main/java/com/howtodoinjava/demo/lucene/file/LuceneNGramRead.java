@@ -23,7 +23,7 @@ public class LuceneNGramRead {
     //directory contains the lucene indexes
     private static final String INDEX_DIR = "indexedFiles";
 
-    public static void main(String[] args) throws Exception
+    public void LuceneNGramReadmain(String texttofind) throws Exception
     {
         //Create lucene searcher. It search over a single IndexReader.
         IndexSearcher searcher = createSearcher();
