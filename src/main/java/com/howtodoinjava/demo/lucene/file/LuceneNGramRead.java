@@ -1,6 +1,7 @@
 package com.howtodoinjava.demo.lucene.file;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.LowerCaseFilter;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.ngram.NGramTokenFilter;
@@ -51,7 +52,8 @@ public class LuceneNGramRead {
             protected TokenStreamComponents createComponents(String s) {
                 Tokenizer source = new NGramTokenizer(LuceneNGramWrite.MIN_N_GRAMS, LuceneNGramWrite.MAX_N_GRAMS);
                 //TokenStream filter = new NGramTokenFilter(source, LuceneNGramWrite.MIN_N_GRAMS, LuceneNGramWrite.MAX_N_GRAMS);
-                TokenStream filter = new SnowballFilter(source, "English");
+                TokenStream firstfilter = new LowerCaseFilter(source);
+                TokenStream filter = new SnowballFilter(firstfilter, "English");
                 return new TokenStreamComponents(source, filter);
             }
         });
