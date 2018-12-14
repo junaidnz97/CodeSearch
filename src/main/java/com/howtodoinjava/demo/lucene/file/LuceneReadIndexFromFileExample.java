@@ -19,24 +19,19 @@ import org.apache.lucene.store.FSDirectory;
  
 public class LuceneReadIndexFromFileExample
 {
-    //directory contains the lucene indexes
     private static final String INDEX_DIR = "indexedFiles";
  
     public  void LuceneReadIndexFromFileExamplemain(String texttofind) throws Exception
     {
-        //Create lucene searcher. It search over a single IndexReader.
         IndexSearcher searcher = createSearcher();
 
-        //Search indexed contents using search term
-        //String texttofind="arrange elements in order";
+
         TopDocs foundDocs = searchInContent(texttofind, searcher);
         QueryParser qp = new QueryParser("contents", new StandardAnalyzer());
         Query query = qp.parse(texttofind);
 
-        //Total found documents
         System.out.println("Total Results :: " + foundDocs.totalHits);
 
-        //Let's print out the path of files which have searched term
         Analyzer analyzer=new StandardAnalyzer();
 
 
@@ -45,9 +40,9 @@ public class LuceneReadIndexFromFileExample
 
         for(String f : fragments)
         {
-            System.out.println();
+            System.out.println("%%NEW CODE%%");
             System.out.println(f);
-            System.out.println();
+            System.out.println("%%END%%");
 
         }
 
@@ -60,11 +55,9 @@ public class LuceneReadIndexFromFileExample
      
     private static TopDocs searchInContent(String textToFind, IndexSearcher searcher) throws Exception
     {
-        //Create search query
         QueryParser qp = new QueryParser("contents", new StandardAnalyzer());
         Query query = qp.parse(textToFind);
          
-        //search the index
         TopDocs hits = searcher.search(query, 10);
         return hits;
     }
@@ -73,9 +66,7 @@ public class LuceneReadIndexFromFileExample
     {
         Directory dir = FSDirectory.open(Paths.get(INDEX_DIR));
          
-        //It is an interface for accessing a point-in-time view of a lucene index
         IndexReader reader = DirectoryReader.open(dir);
-        //Index ceaher
         IndexSearcher searcher = new IndexSearcher(reader);
         return searcher;
     }

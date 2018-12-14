@@ -4,9 +4,9 @@ public class mainclass {
 
     public static void main(String[] args)
     {
-        String query="search";
+        String query="arrange elements in ascending order";
 
-        String wq="*search";
+        String wq="dy*c";
         LuceneWriteIndexFromFileExample luceneWriteIndexFromFileExample=new LuceneWriteIndexFromFileExample();
         luceneWriteIndexFromFileExample.LuceneWriteIndexFromFileExamplemain();
         System.out.println("Created Inverted Index from Regular Files.\n");
